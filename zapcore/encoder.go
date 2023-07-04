@@ -202,6 +202,11 @@ func StringDurationEncoder(d time.Duration, enc PrimitiveArrayEncoder) {
 	enc.AppendString(d.String())
 }
 
+// StringEncoder add a simple string
+func StringEncoder(s string, enc PrimitiveArrayEncoder) {
+	enc.AppendString(s)
+}
+
 // UnmarshalText unmarshals text to a DurationEncoder. "string" is unmarshaled
 // to StringDurationEncoder, and anything else is unmarshaled to
 // NanosDurationEncoder.
