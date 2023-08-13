@@ -22,11 +22,14 @@ package zapcore
 
 import (
 	"fmt"
+	"os"
 	"sync"
 
 	"go.uber.org/zap/buffer"
 	"go.uber.org/zap/internal/bufferpool"
 )
+
+var hostname, _ = os.Hostname()
 
 var _sliceEncoderPool = sync.Pool{
 	New: func() interface{} {
@@ -83,6 +86,7 @@ func (c consoleEncoder) EncodeEntry(ent Entry, fields []Field) (*buffer.Buffer, 
 	if c.LevelKey != "" && c.EncodeLevel != nil {
 		c.EncodeLevel(ent.Level, arr)
 	}
+	arr.AppendString(hostname)
 	if ent.LoggerName != "" && c.NameKey != "" {
 		nameEncoder := c.EncodeName
 
